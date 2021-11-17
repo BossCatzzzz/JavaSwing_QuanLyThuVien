@@ -51,21 +51,33 @@ public class DocGia{
     public void setCmnd(String cmnd) {
         this.cmnd = cmnd;
     }
-    private String ten,ma,sdt,diachi,cmnd;
 
-    public DocGia(String ma,String ten, String sdt, String diachi, String cmnd) {
+    public String Gioitinh() {
+        return gioitinh;
+    }
+
+    public void setGioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
+    }
+
+    
+    private String ten,ma,sdt,diachi,gioitinh,cmnd;
+    
+
+    public DocGia(String ma,String ten, String diachi, String sdt, String cmnd,String gt) {
         this.ten = ten;
         this.ma = ma;
         this.sdt = sdt;
         this.diachi = diachi;
         this.cmnd = cmnd;
+        this.gioitinh=gt;
     }
 
     public DocGia() {
     }
     public String[] ToListString()
     {        
-        return new String[]{this.ma,this.ten,this.sdt,this.diachi,this.cmnd};
+        return new String[]{this.ma,this.ten,this.diachi,this.sdt,this.cmnd,this.gioitinh};
     }
         public boolean SearchOnAll(String key)
     {

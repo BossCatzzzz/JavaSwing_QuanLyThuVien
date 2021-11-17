@@ -5,6 +5,7 @@
  */
 package UI;
 
+
 import BLL.MY_HANDLE;
 import DAL.MY_HANDLE_CONNECTION;
 import DTO.TaiKhoan;
@@ -22,7 +23,7 @@ public class fDangNhap extends javax.swing.JFrame {
 
     private final MY_HANDLE_CONNECTION db;
     private final MY_HANDLE handle;
-    private fMain f;
+  //  private fMain f;
 
     public fDangNhap() throws SQLException {
         initComponents();
@@ -41,7 +42,7 @@ public class fDangNhap extends javax.swing.JFrame {
         initComponents();
         db = new MY_HANDLE_CONNECTION();
         handle = xl;
-        f = (fMain) par;
+    //    f = (fMain) par;
     }
 
     /**
@@ -135,7 +136,7 @@ public class fDangNhap extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Dang nhap thanh cong");
                 tbMatKhau.setText("");
                 tbTenDangNhap.setText("");
-                f.LoginOK();
+   //             f.LoginOK();
                 db.Close();
                 this.dispose();
 

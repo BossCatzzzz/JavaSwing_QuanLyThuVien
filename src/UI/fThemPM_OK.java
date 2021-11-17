@@ -5,6 +5,7 @@
  */
 package UI;
 
+//import testPK.fMain;
 import BLL.MY_HANDLE;
 import DTO.TTPhieuMuon;
 import java.sql.SQLException;
@@ -20,10 +21,8 @@ import javax.swing.JPanel;
  */
 public class fThemPM_OK extends javax.swing.JFrame {
 
-    /**
-     * Creates new form fThemPM_OK
-     */
-    private fMain fmain;
+
+  //  private fMain fmain;
     private fThemPhieuMuon fThemPM = (fThemPhieuMuon) this.getParent();
     private MY_HANDLE xl;
     public fThemPM_OK() {
@@ -32,7 +31,7 @@ public class fThemPM_OK extends javax.swing.JFrame {
 
     public fThemPM_OK(TTPhieuMuon info, MY_HANDLE xuly,JFrame main) {
         initComponents();
-        fmain = (fMain) main;
+       // fmain = (fMain) main;
         xl=xuly;
         TTPhieuMuon THONGTIN = info;
         tbMaDG.setText(THONGTIN.getMadg());

@@ -537,10 +537,11 @@ public class fMain1 extends javax.swing.JFrame {
 
     public void LoadDocGia() {
         HANDLE.DOCGIALIST.clear();
+        System.out.println("UI.fMain1.LoadDocGia()");
         try {
             ResultSet rs = db.RunQuery("select * from DOCGIA");
             while (rs.next()) {
-                DocGia DG = new DocGia(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                DocGia DG = new DocGia(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6));
                 HANDLE.DOCGIALIST.add(DG);
             }
         } catch (Exception ex) {

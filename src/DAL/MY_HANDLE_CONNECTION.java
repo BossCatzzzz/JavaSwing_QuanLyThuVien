@@ -20,7 +20,7 @@ public class MY_HANDLE_CONNECTION {
     private Connection conn;
 
     public MY_HANDLE_CONNECTION() throws SQLException {
-        String cntString = "jdbc:sqlserver://PRIME\\PRIMESQL:1433;databaseName=QUANLYTHUVIEN";
+        String cntString = "jdbc:sqlserver://PRIME\\PRIMESQL:1433;databaseName=QUANLYTHUVIEN_UPDATE";
         try {
             conn = DriverManager.getConnection(cntString, "sa", "123456");
         } catch (SQLException e) {
@@ -48,6 +48,7 @@ public class MY_HANDLE_CONNECTION {
         PreparedStatement ps = conn.prepareStatement(query[0]);
         for (int i = 1; i < query.length; i++) {
             ps.setString(i, query[i]);
+            //ps.set
         }
         if (ps.executeUpdate() > 0) {
             ps.close();
