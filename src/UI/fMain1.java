@@ -12,21 +12,14 @@ import DTO.Sach;
 import DTO.TTPhieuMuon;
 import DTO.TheLoai;
 import java.awt.Color;
-import java.awt.Dialog;
-import java.beans.DesignMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -42,11 +35,9 @@ public class fMain1 extends javax.swing.JFrame {
     private fDangNhap f;
     private fDoiMatKhau fDMK;
     private List<Color> colors;
-    //private fThemPhieuMuon fThemPM;
-    //private boolean PANNELSACHENABLE = true;
-
-    Color panedaefau;
-    Color paneclick;
+    private JInternalFrame fhere;
+    private Color panedaefau;
+    private Color paneclick;
 
     public fMain1() throws SQLException {
         initComponents();
@@ -64,20 +55,17 @@ public class fMain1 extends javax.swing.JFrame {
 //        EnablePnTTSach(false);
         fhere = new fQLSACH(this, HANDLE);
         pnDesktop.add(fhere).setVisible(true);
-        colors=new ArrayList<Color>();
+        colors = new ArrayList<Color>();
         colors.add(new Color(60, 83, 60));
         colors.add(new Color(101, 123, 97));
         colors.add(new Color(141, 161, 132));
-        
+
         panedaefau = new Color(77, 100, 141);
         paneclick = new Color(146, 136, 126);
         this.getContentPane().setBackground(new Color(30, 31, 38));//[30,31,38]210,225,230
-        
-        
+
         //LoadAllData();
     }
-
-    JInternalFrame fhere;
 
 // <editor-fold defaultstate="collapsed" desc="Load tất cả mọi thứ"> 
     private void LoadAllData() {
@@ -449,7 +437,6 @@ public class fMain1 extends javax.swing.JFrame {
         fhere.setSize(pnDesktop.getWidth(), pnDesktop.getHeight());
     }//GEN-LAST:event_formComponentResized
 
-    
     void OnlyOne(JPanel it) {
         for (int i = 0; i < pnMenu.getComponentCount(); i++) {
             JPanel pn = (JPanel) pnMenu.getComponent(i);
@@ -509,7 +496,7 @@ public class fMain1 extends javax.swing.JFrame {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         int xx = evt.getXOnScreen();
         int yy = evt.getYOnScreen();
-        this.setLocation(xx-x-255 , yy-y );
+        this.setLocation(xx - x - 255, yy - y);
     }//GEN-LAST:event_jPanel1MouseDragged
 
 
@@ -517,9 +504,8 @@ public class fMain1 extends javax.swing.JFrame {
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
             evt.consume();
             //handle double click event.
-            
-            
-            if (this.getExtendedState()==6) {
+
+            if (this.getExtendedState() == 6) {
                 //JOptionPane.showMessageDialog(rootPane, "full");
                 this.setExtendedState(JFrame.NORMAL);
             } else {
@@ -529,7 +515,7 @@ public class fMain1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       //JOptionPane.showMessageDialog(rootPane, ""+this.getExtendedState());
+        //JOptionPane.showMessageDialog(rootPane, ""+this.getExtendedState());
         if (JOptionPane.showConfirmDialog(null, "Ban co muon thoat", "Chú ý", YES_NO_OPTION) == 0) {
             System.exit(0);
         }
@@ -541,7 +527,7 @@ public class fMain1 extends javax.swing.JFrame {
         try {
             ResultSet rs = db.RunQuery("select * from DOCGIA");
             while (rs.next()) {
-                DocGia DG = new DocGia(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6));
+                DocGia DG = new DocGia(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
                 HANDLE.DOCGIALIST.add(DG);
             }
         } catch (Exception ex) {
@@ -560,7 +546,7 @@ public class fMain1 extends javax.swing.JFrame {
             }
             ResultSet rstl = db.RunQuery("select MaTheLoai,TenTheLoai from THELOAI");
             while (rstl.next()) {
-                HANDLE.MAPTHELOAI.put(Integer.parseInt(rstl.getString(1)), rstl.getString(2));
+                HANDLE.MAPTHELOAI.put(rstl.getString(1), rstl.getString(2));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Co loi khi lay du lieu Sach:\n" + ex.getMessage());
@@ -572,7 +558,7 @@ public class fMain1 extends javax.swing.JFrame {
         try {
             ResultSet rs = db.RunQuery("Select * from TheLoai");
             while (rs.next()) {
-                TheLoai tl = new TheLoai(rs.getInt(1), rs.getString(2));
+                TheLoai tl = new TheLoai(rs.getString(1), rs.getString(2));
                 HANDLE.THELOAILIST.add(tl);
             }
         } catch (Exception e) {

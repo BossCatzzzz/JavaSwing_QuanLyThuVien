@@ -4,16 +4,12 @@ import BLL.MY_HANDLE;
 import DAL.MY_HANDLE_CONNECTION;
 import DTO.DocGia;
 import img.IMG;
-import java.awt.Frame;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,7 +17,6 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import testPK.img.flag;
 
 public class fQLDOCGIA extends javax.swing.JInternalFrame {
 
@@ -43,17 +38,6 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
     public void LoadPannelDocGia() {
         MAIN.LoadDocGia();
         LayBangDG();
-
-        LockPnTTDG(true);
-
-        tableDSDG.setEnabled(true);
-        btXoaDG.setText("Xoa");
-
-        btThemDG.setVisible(true);
-        btSuaDG.setVisible(true);
-        btSuaDG.setText("Sua");
-        btThemDG.setText("Them");
-        HANDLE.ClearTextBox(pnTTDG);
         CHONDOCGIA = -1;
     }
 
@@ -62,25 +46,10 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
         if (CHONDOCGIA < 0 || CHONDOCGIA >= HANDLE.DOCGIALIST.size()) {
             return;
         }
-//        tbMaDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 0).toString());
-//        tbTenDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 1).toString());
-//        tbDiaChi.setText(tableDSDG.getValueAt(CHONDOCGIA, 2).toString());
-//        tbSDTDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 3).toString());
-//        tbCMTDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 4).toString());
-//        if(tableDSDG.getModel().getValueAt(CHONDOCGIA, 5).toString().equals("Nam"))
-//        {
-//            rdbtNam.setSelected(true);
-//        }
-//        else rdbtNu.setSelected(true);
-
-        ///////////////////////////////////////////////////////////////////
         IMG fl = new IMG();
 
         String imgname = (tableDSDG.getModel().getValueAt(CHONDOCGIA, 5).toString().equals("1")) ? "male" : "female";
         imgname += ".png";
-
-        System.out.println("Test:\t" + imgname);
-
         URL link = fl.getClass().getResource(imgname);
 
         BufferedImage myPicture;
@@ -91,13 +60,11 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Loi khi lay hinh:\n" + ex);
         }
-
         lbMaDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 0).toString());
         lbTenDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 1).toString());
         lbCMNDDG.setText(tableDSDG.getValueAt(CHONDOCGIA, 4).toString());
         lbSDT.setText(tableDSDG.getValueAt(CHONDOCGIA, 3).toString());
         lbDiaChi.setText(tableDSDG.getValueAt(CHONDOCGIA, 2).toString());
-
     }
 
     private void LayBangDG() {
@@ -107,14 +74,6 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
             model.addRow(docGia.ToListString());
         }
     }
-
-    private void LockPnTTDG(boolean b) {
-//        tbTenDG.setEditable(!b);
-//        tbDiaChi.setEditable(!b);
-//        tbCMTDG.setEditable(!b);
-//        tbSDTDG.setEditable(!b);
-    }
-
     public void search() {
         DefaultTableModel model = (DefaultTableModel) tableDSDG.getModel();
         model.setRowCount(0);
@@ -176,59 +135,30 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
 
         pnTTDG.setBackground(new java.awt.Color(167, 174, 130));
         pnTTDG.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnTTDG.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbHinhAnh.setText("Gioi tinh");
+        pnTTDG.add(lbHinhAnh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 150));
 
         lbMaDG.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbMaDG.setText("Ma Doc gia");
+        pnTTDG.add(lbMaDG, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
 
         lbTenDG.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbTenDG.setText("Ho Ten");
+        pnTTDG.add(lbTenDG, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         lbCMNDDG.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbCMNDDG.setText("CMND");
+        pnTTDG.add(lbCMNDDG, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
 
         lbDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbDiaChi.setText("Dia chi");
+        pnTTDG.add(lbDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, -1, -1));
 
         lbSDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbSDT.setText("SDT");
-
-        javax.swing.GroupLayout pnTTDGLayout = new javax.swing.GroupLayout(pnTTDG);
-        pnTTDG.setLayout(pnTTDGLayout);
-        pnTTDGLayout.setHorizontalGroup(
-            pnTTDGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnTTDGLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lbHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pnTTDGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbMaDG)
-                    .addComponent(lbTenDG)
-                    .addComponent(lbCMNDDG)
-                    .addComponent(lbDiaChi)
-                    .addComponent(lbSDT))
-                .addContainerGap(210, Short.MAX_VALUE))
-        );
-        pnTTDGLayout.setVerticalGroup(
-            pnTTDGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnTTDGLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addComponent(lbHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
-            .addGroup(pnTTDGLayout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(lbMaDG)
-                .addGap(18, 18, 18)
-                .addComponent(lbTenDG)
-                .addGap(18, 18, 18)
-                .addComponent(lbCMNDDG)
-                .addGap(18, 18, 18)
-                .addComponent(lbDiaChi)
-                .addGap(18, 18, 18)
-                .addComponent(lbSDT)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        pnTTDG.add(lbSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, -1));
 
         tbTImkiemPhieuMuon.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -290,19 +220,19 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(tabpnDocGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tbTImkiemPhieuMuon)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(tabpnDocGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tabpnDocGiaLayout.createSequentialGroup()
-                        .addGroup(tabpnDocGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnTTDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btThemDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabpnDocGiaLayout.createSequentialGroup()
                         .addComponent(btSuaDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(95, 95, 95)
                         .addComponent(btXoaDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
+                        .addGap(127, 127, 127))
+                    .addGroup(tabpnDocGiaLayout.createSequentialGroup()
+                        .addGroup(tabpnDocGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btThemDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnTTDG, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         tabpnDocGiaLayout.setVerticalGroup(
             tabpnDocGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,8 +250,8 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                         .addGap(24, 24, 24))
                     .addGroup(tabpnDocGiaLayout.createSequentialGroup()
-                        .addComponent(pnTTDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addComponent(pnTTDG, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(tabpnDocGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btSuaDG, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btXoaDG, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -362,73 +292,11 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Loi khi tao form them doc gia:\n" + ex.getMessage());
         }
         fthem.show();
-//        if (btThemDG.getText().equals("Them")) {
-//            LockPnTTDG(false);
-//            tableDSDG.setEnabled(false);
-//            btSuaDG.setVisible(false);
-//
-//            HANDLE.ClearTextBox(pnTTDG);
-//            btThemDG.setText("Xac nhan");
-//            btXoaDG.setText("Huy bo");
-//        } else if (btThemDG.getText().equals("Xac nhan")) {
-//            if (!HANDLE.KiemTraNhap(pnTTDG)) {
-//                JOptionPane.showMessageDialog(this, "Chua dien day du thong tin");
-//                return;
-//            }
-//            String[] query = {"insert into DOCGIA values(?,?,?,?)", "", "", "", ""};
-//            query[1] = tbTenDG.getText();
-//            query[2] = tbDiaChi.getText();
-//            query[3] = tbSDTDG.getText();
-//            query[4] = tbCMTDG.getText();
-//            try {
-//                db.RunQuery(query);
-//                JOptionPane.showMessageDialog(this, "Them Doc gia thanh cong!!\n");
-//                LoadPannelDocGia();
-//            } catch (SQLException ex) {
-//                JOptionPane.showMessageDialog(this, "Loi khi them Doc gia:\n" + ex.getMessage());
-//            }
-//        }
+
     }//GEN-LAST:event_btThemDGActionPerformed
 
     private void btSuaDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaDGActionPerformed
         if (CHONDOCGIA != -1) {
-//            if (btSuaDG.getText().equals("Sua")) {//dag la nut sua
-//                pnTTDG.requestFocus();
-//                tableDSDG.setEnabled(false);
-//                btXoaDG.setText("Huy bo");
-//                btThemDG.setVisible(false);
-//                //btTimKiemSach.setEnabled(false);
-//                btSuaDG.setText("Luu lai");
-//                LockPnTTDG(false);
-//            } else if (btSuaDG.getText().equals("Luu lai"))//neu la nut luu lai, thi chay query
-//            {
-//                if (!HANDLE.KiemTraNhap(pnTTDG)) {
-//                    JOptionPane.showMessageDialog(this, "Chua dien day du thong tin");
-//                    return;
-//                }
-//                String[] query = {"update DOCGIA set TenDocGia=?,DiaChi=?,Sdt=?,CMND=? where MaDocGia=? ", "", "", "", "", ""};
-//                query[1] = tbTenDG.getText();
-//                query[2] = tbDiaChi.getText();
-//                query[3] = tbSDTDG.getText();
-//                query[4] = tbCMTDG.getText();
-//                query[5] = tbMaDG.getText();
-//
-//                try {
-//                    db.RunQuery(query);
-//                    tableDSDG.setEnabled(true);
-//                    btXoaDG.setText("Xoa");
-//                    btThemDG.setVisible(true);
-//                    btSuaDG.setText("Sua");
-//                    LockPnTTDG(true);
-//                    JOptionPane.showMessageDialog(this, "Luu thay doi Doc gia thanh cong!!\n");
-//                    LoadPannelDocGia();
-//                } catch (SQLException ex) {
-//                    JOptionPane.showMessageDialog(this, "Loi khi sua thong Doc gia:\n" + ex.getMessage());
-//                }
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Hay chon mot Doc gia!!");
-//        }
             DocGia edit = new DocGia();
             edit.setMa(lbMaDG.getText());
             edit.setTen(lbTenDG.getText());
@@ -452,10 +320,6 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSuaDGActionPerformed
 
     private void btXoaDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaDGActionPerformed
-//        if (btXoaDG.getText().equals("Huy bo")) {
-//            LoadPannelDocGia();
-//            return;
-//        } else if (btXoaDG.getText().equals("Xoa")) {
         if (CHONDOCGIA == -1) {
             JOptionPane.showMessageDialog(this, "Chua chon DG nao!!");
             return;
@@ -480,7 +344,6 @@ public class fQLDOCGIA extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Loi khi xoa DG:\n" + ex.getMessage());
             }
         }
-//        }
     }//GEN-LAST:event_btXoaDGActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code - Do not modify"> 

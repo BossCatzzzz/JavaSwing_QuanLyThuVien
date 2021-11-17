@@ -10,13 +10,12 @@ package DTO;
  * @author Magic
  */
 public class TheLoai {
-    String tentl;
-    int matl;
+    String tentl,matl;
 
     public TheLoai() {
     }
 
-    public TheLoai(int matl, String tentl) {
+    public TheLoai(String matl, String tentl) {
         this.matl = matl;
         this.tentl = tentl;
     }
@@ -29,16 +28,16 @@ public class TheLoai {
         this.tentl = tentl;
     }
 
-    public int getMatl() {
+    public String getMatl() {
         return matl;
     }
 
-    public void setMatl(int matl) {
+    public void setMatl(String matl) {
         this.matl = matl;
     }
     
     public String[] ToListString() {
         
-        return new String[]{""+this.matl, this.tentl};
+        return new String[]{this.matl, this.tentl};
     }
 }

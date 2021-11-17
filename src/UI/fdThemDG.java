@@ -8,10 +8,7 @@ import BLL.MY_HANDLE;
 import DAL.MY_HANDLE_CONNECTION;
 import DTO.DocGia;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,10 +19,17 @@ public class fdThemDG extends javax.swing.JDialog {
 
     private final MY_HANDLE_CONNECTION db;
     private final MY_HANDLE HANDLE;
-    private  fQLDOCGIA PARENT;
-    private  fMain1 MAIN;
+    private fQLDOCGIA PARENT;
+    private fMain1 MAIN;
     private DocGia EDIT;
 
+    /**
+     * này để tạo form thêm
+     * @param main
+     * @param modal
+     * @param parent
+     * @throws SQLException 
+     */
     public fdThemDG(JFrame main, boolean modal,fQLDOCGIA parent) throws SQLException {
         super(main, modal);
         initComponents();
@@ -41,7 +45,6 @@ public class fdThemDG extends javax.swing.JDialog {
 
     /**
      * constructor này để tạo form sửa
-     *
      * @param main
      * @param parent
      * @param modal
@@ -105,6 +108,7 @@ public class fdThemDG extends javax.swing.JDialog {
 
         tbMaDG.setEditable(false);
         tbMaDG.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tbMaDG.setEnabled(false);
         pnTTDG.add(tbMaDG, new org.netbeans.lib.awtextra.AbsoluteConstraints(149, 52, 226, -1));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -251,6 +255,8 @@ public class fdThemDG extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btHuyBoActionPerformed
 
+    
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -308,4 +314,4 @@ public class fdThemDG extends javax.swing.JDialog {
     private javax.swing.JTextField tbSDTDG;
     private javax.swing.JTextField tbTenDG;
     // End of variables declaration//GEN-END:variables
-}
+}// </editor-fold>

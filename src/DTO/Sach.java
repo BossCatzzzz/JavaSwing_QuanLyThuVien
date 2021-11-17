@@ -64,9 +64,7 @@ public class Sach {
     }
     
     public String[] ToListString()
-    {
-        //ArrayList<String> list=new ArrayList<String>(){};
-        
+    {    
         return new String[]{this.MaSach,this.TenSach,this.SoLuong,this.MaTheLoai,this.TomTat,this.tacgia};
     }
 

@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -31,7 +30,8 @@ public class MY_HANDLE {
     public List<Sach> SACHLIST;
     public List<TTPhieuMuon> PHIEUMUONLIST;
     public List<TheLoai> THELOAILIST;
-    public Map<Integer, String> MAPTHELOAI = new HashMap<Integer, String>();
+    public Map<String, String> MAPTHELOAI = new HashMap<String, String>();
+
     public String MD5Hash(String input) {
         MessageDigest md;
         try {
@@ -53,8 +53,8 @@ public class MY_HANDLE {
     public MY_HANDLE() {
         DOCGIALIST = new ArrayList<DocGia>();
         SACHLIST = new ArrayList<Sach>();
-        PHIEUMUONLIST=new ArrayList<TTPhieuMuon>();
-        THELOAILIST= new ArrayList<TheLoai>();
+        PHIEUMUONLIST = new ArrayList<TTPhieuMuon>();
+        THELOAILIST = new ArrayList<TheLoai>();
     }
 
     public boolean CheckPass(String pass) {
@@ -134,21 +134,15 @@ public class MY_HANDLE {
      *
      * @author Magic
      */
-    public Integer getKey(Map<Integer, String> map, String value) {
-        for (Map.Entry<Integer, String> entry : map.entrySet()) {
-            if (value.equals(entry.getValue())) {
+    public String getKey(Map<String, String> map, String value) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            if (value.toUpperCase().equals(entry.getValue().toUpperCase())) {
                 return entry.getKey();
             }
         }
-        return -1;
+        return "-1";
     }
 
-//    public void ClearTextBox(JTextField[] tb) {
-//        for (int i = 0; i < tb.length; i++) {
-//            tb[i].setText("");
-//        }
-//        
-//    }
     public void ClearTextBox(JComponent pn) {
         for (int i = 0; i < pn.getComponentCount(); i++) {
             if (pn.getComponent(i).getClass().equals(JTextField.class)) {
@@ -156,5 +150,25 @@ public class MY_HANDLE {
                 tx.setText("");
             }
         }
+    }
+
+    public String BreakLineTitle(String title) {
+        String tmp = "";
+        //String[] fix = null;
+        if (title.length() > 25) {
+
+            for (int i = 18; i < title.length(); i++) {
+                if (title.charAt(i) == ' ') {
+                    //fix = title.split(" ");
+                    tmp = "<html>" + title.substring(0, i) + "<br>";
+                    tmp += title.substring(i) + "</html>";
+                    break;
+                }
+            }
+
+        } else {
+            tmp = title;
+        }
+        return tmp;
     }
 }
