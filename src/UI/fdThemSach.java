@@ -5,12 +5,31 @@
 package UI;
 
 import BLL.MY_HANDLE;
+import Bookcovers.BookCover_Handle;
 import DAL.MY_HANDLE_CONNECTION;
 import DTO.Sach;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.FileChooserUI;
+
+import static java.nio.file.StandardCopyOption.*;
+import java.sql.ResultSet;
 
 /**
  *
@@ -24,7 +43,7 @@ public class fdThemSach extends javax.swing.JDialog {
     private fMain1 MAIN;
     private Sach EDIT;
 
-    public fdThemSach(JFrame main, boolean modal, fQLSACH parent,MY_HANDLE handle) throws SQLException {
+    public fdThemSach(JFrame main, boolean modal, fQLSACH parent, MY_HANDLE handle) throws SQLException {
         super(main, modal);
         initComponents();
 
@@ -39,7 +58,7 @@ public class fdThemSach extends javax.swing.JDialog {
         lbMasach.setVisible(false);
     }
 
-    public fdThemSach(JFrame main, boolean modal, fQLSACH parent, Sach s,MY_HANDLE handle) throws SQLException {
+    public fdThemSach(JFrame main, boolean modal, fQLSACH parent, Sach s, MY_HANDLE handle) throws SQLException {
         super(main, modal);
         initComponents();
 
@@ -88,6 +107,8 @@ public class fdThemSach extends javax.swing.JDialog {
         tbSoluong = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        btChonFile = new javax.swing.JButton();
+        lbAnhChon = new javax.swing.JLabel();
         btHuybo = new javax.swing.JButton();
         btThem = new javax.swing.JButton();
 
@@ -131,12 +152,28 @@ public class fdThemSach extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(jTextPane1);
 
+        btChonFile.setText("Chon file");
+        btChonFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btChonFileActionPerformed(evt);
+            }
+        });
+
+        lbAnhChon.setText("<html><p style=padding-left:30px;\"\">Anh bia</p></html>");
+
         javax.swing.GroupLayout pnTTSachLayout = new javax.swing.GroupLayout(pnTTSach);
         pnTTSach.setLayout(pnTTSachLayout);
         pnTTSachLayout.setHorizontalGroup(
             pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTTSachLayout.createSequentialGroup()
-                .addContainerGap(182, Short.MAX_VALUE)
+                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnTTSachLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(lbAnhChon, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnTTSachLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(btChonFile)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(pnTTSachLayout.createSequentialGroup()
@@ -162,26 +199,32 @@ public class fdThemSach extends javax.swing.JDialog {
         pnTTSachLayout.setVerticalGroup(
             pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnTTSachLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbMasach)
-                    .addComponent(tbMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tbTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbbTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(tbSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnTTSachLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbMasach)
+                            .addComponent(tbMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tbTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cbbTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(tbSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnTTSachLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(lbAnhChon, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(tbTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tbTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btChonFile))
                 .addGap(18, 18, 18)
                 .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnTTSachLayout.createSequentialGroup()
@@ -253,14 +296,36 @@ public class fdThemSach extends javax.swing.JDialog {
             return;
         }
         if (btThem.getText().equals("Thêm")) {
-            String[] query = {"insert into SACH(TenSach,SoLuong,MaTheLoai,TomTat,TacGia) values(?,?,?,?,?)", "", "", "", "", ""};
+            String[] query = {"insert into SACH(TenSach,SoLuong,MaTheLoai,TomTat,TacGia) output inserted.MaSach values(?,?,?,?,?)", "", "", "", "", ""};
             query[1] = tbTenSach.getText();
             query[2] = tbSoluong.getText();
             query[3] = HANDLE.getKey(HANDLE.MAPTHELOAI, cbbTheLoai.getSelectedItem().toString());
             query[4] = jTextPane1.getText();
             query[5] = tbTacGia.getText();
+            ResultSet rs = null;
             try {
-                db.RunQuery(query);
+                rs = db.RunQuery_Get(query);
+                rs.next();
+
+                if (fANHBIA != null) {
+                    Path sour = Paths.get(fANHBIA.getAbsolutePath());
+
+                    String extension = "";
+                    int i = fANHBIA.getName().lastIndexOf('.');
+                    if (i > 0) {
+                        extension = fANHBIA.getName().substring(i + 1);
+                    }
+
+                    Path des = Paths.get(System.getProperty("user.dir") + "\\src\\Bookcovers\\" + rs.getString(1) + "." + extension);
+
+                    try {
+                        Files.copy(sour, des, REPLACE_EXISTING);
+                        //lbAnhChon.setIcon(new ImageIcon(f.getAbsolutePath()));
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this, "Loi khi luu anh:\n" + ex.getMessage());
+                    }
+                }
+
                 JOptionPane.showMessageDialog(this, "Them sach thanh cong!!\n");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Loi khi them sach:\n" + ex.getMessage());
@@ -275,11 +340,32 @@ public class fdThemSach extends javax.swing.JDialog {
             query[6] = tbMaSach.getText();
             try {
                 db.RunQuery(query);
+
+                if (fANHBIA != null) {
+                    Path sour = Paths.get(fANHBIA.getAbsolutePath());
+
+                    String extension = "";
+                    int i = fANHBIA.getName().lastIndexOf('.');
+                    if (i > 0) {
+                        extension = fANHBIA.getName().substring(i + 1);
+                    }
+
+                    Path des = Paths.get(System.getProperty("user.dir") + "\\src\\Bookcovers\\" + tbMaSach.getText() + "." + extension);
+
+                    try {
+                        Files.copy(sour, des, REPLACE_EXISTING);
+                        //lbAnhChon.setIcon(new ImageIcon(f.getAbsolutePath()));
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this, "Loi khi luu anh:\n" + ex.getMessage());
+                    }
+                }
+
                 JOptionPane.showMessageDialog(this, "Luu thay doi sach thanh cong!!\n");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Loi khi sua thong tin sach:\n" + ex.getMessage());
             }
         }
+
         PARENT.LoadPanelSach();
         this.dispose();
     }//GEN-LAST:event_btThemActionPerformed
@@ -287,6 +373,25 @@ public class fdThemSach extends javax.swing.JDialog {
     private void btHuyboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyboActionPerformed
         this.dispose();
     }//GEN-LAST:event_btHuyboActionPerformed
+
+    File fANHBIA;
+    private void btChonFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChonFileActionPerformed
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Hinh anh", "jpg", "png");
+        fc.setFileFilter(filter);
+        fc.setMultiSelectionEnabled(false);
+        BookCover_Handle flag = new BookCover_Handle();
+        if (fc.showDialog(this, "Chon file") == JFileChooser.APPROVE_OPTION) {
+            fANHBIA = fc.getSelectedFile();
+            BufferedImage myPicture;
+            try {
+                myPicture = ImageIO.read(fANHBIA);
+                lbAnhChon.setIcon(new ImageIcon(myPicture.getScaledInstance(lbAnhChon.getWidth(), lbAnhChon.getHeight(), Image.SCALE_SMOOTH)));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Loi khi show anh:\n" + ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btChonFileActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -328,6 +433,7 @@ public class fdThemSach extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btChonFile;
     private javax.swing.JButton btHuybo;
     private javax.swing.JButton btThem;
     private javax.swing.JComboBox<String> cbbTheLoai;
@@ -338,6 +444,7 @@ public class fdThemSach extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JLabel lbAnhChon;
     private javax.swing.JLabel lbMasach;
     private javax.swing.JPanel pnTTSach;
     private javax.swing.JTextField tbMaSach;

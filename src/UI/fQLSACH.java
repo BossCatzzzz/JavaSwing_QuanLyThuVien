@@ -8,8 +8,11 @@ import DTO.TheLoai;
 import img.IMG;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -94,7 +97,7 @@ public class fQLSACH extends javax.swing.JInternalFrame {
         for (TheLoai theLoai : HANDLE.THELOAILIST) {
             model.addRow(theLoai.ToListString());
         }
-        model.addRow(new String[]{"", "Tất cả thể loại"});
+        model.addRow(new String[]{"", "<html><p style=\"padding-left:50px\">" + "Tất cả thể loại" + "</p></html>"});
     }
 
     private void Combobox_load() {
@@ -127,17 +130,24 @@ public class fQLSACH extends javax.swing.JInternalFrame {
         taTomTat.setText(tableDSS.getValueAt(CHONSACH, 4).toString());
         //lbTomTat.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         lbTacGia.setText(tableDSS.getValueAt(CHONSACH, 5).toString());
-        lbTheLoai.setText(HANDLE.MAPTHELOAI.get(tableDSS.getValueAt(CHONSACH, 3).toString().toUpperCase()));
+        //lbTheLoai.setText(HANDLE.MAPTHELOAI.get(tableDSS.getValueAt(CHONSACH, 3).toString().toUpperCase()));
+        lbTheLoai.setText(tableDSS.getValueAt(CHONSACH, 3).toString());
+        
         //jTextPane1.setText(tableDSS.getValueAt(CHONSACH, 1).toString());
         //jTextArea1.setText(tableDSS.getValueAt(CHONSACH, 1).toString());
         BookCover_Handle fl = new BookCover_Handle();
 
         String imgname = (lbMaSach.getText() + ".jpg");
         URL link = fl.getClass().getResource(imgname);
-        BufferedImage myPicture;
         if (link == null) {
-            link = fl.getClass().getResource("noimg.jpg");
+
+            imgname = (lbMaSach.getText() + ".png");
+            link = fl.getClass().getResource(imgname);
+            if (link == null) {
+                link = fl.getClass().getResource("noimg.jpg");
+            }
         }
+        BufferedImage myPicture;
         try {
             myPicture = ImageIO.read(link);
             Image dimg = myPicture.getScaledInstance(lbAnhBia.getWidth(), lbAnhBia.getHeight(), Image.SCALE_SMOOTH);
@@ -162,7 +172,7 @@ public class fQLSACH extends javax.swing.JInternalFrame {
             }
         } else {
             for (Sach sach : HANDLE.SACHLIST) {
-                if (sach.getMaTheLoai().toUpperCase().equals(tableTheLoai.getValueAt(CHONTHELOAI, 0).toString().toUpperCase())) {
+                if (sach.getMaTheLoai().toUpperCase().equals(tableTheLoai.getValueAt(CHONTHELOAI, 1).toString().toUpperCase())) {
                     model.addRow(sach.ToListString());
                 }
             }
@@ -276,8 +286,10 @@ public class fQLSACH extends javax.swing.JInternalFrame {
             }
         });
         tableDSS.setFillsViewportHeight(true);
-        tableDSS.setRowHeight(40);
+        tableDSS.setRowHeight(50);
         tableDSS.setSelectionBackground(new java.awt.Color(0, 100, 50));
+        tableDSS.setShowGrid(false);
+        tableDSS.setShowHorizontalLines(true);
         tableDSS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tableDSSMouseReleased(evt);
@@ -286,9 +298,9 @@ public class fQLSACH extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tableDSS);
         if (tableDSS.getColumnModel().getColumnCount() > 0) {
             tableDSS.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tableDSS.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tableDSS.getColumnModel().getColumn(2).setPreferredWidth(20);
-            tableDSS.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableDSS.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tableDSS.getColumnModel().getColumn(2).setPreferredWidth(15);
+            tableDSS.getColumnModel().getColumn(3).setPreferredWidth(40);
         }
 
         tbTImkiemSach.getDocument().addDocumentListener(new DocumentListener() {
@@ -462,9 +474,20 @@ public class fQLSACH extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(this, "Loi khi xoa sach:\nSach con trong phieu muon.\nKhong the xoa!!");
                         return;
                     }
+                    //neu khong co trong phieu muon thi xoa...
                     query[0] = "delete from SACH where MaSach=?";
                     query[1] = lbMaSach.getText();
                     db.RunQuery(query);
+
+
+                    
+                    try {
+                        Files.deleteIfExists(Paths.get(System.getProperty("user.dir")+"\\src\\Bookcovers\\"+lbMaSach.getText()+".jpg"));
+                        Files.deleteIfExists(Paths.get(System.getProperty("user.dir")+"\\src\\Bookcovers\\"+lbMaSach.getText()+".png"));
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this, "Loi khi xoa anh bia!!\n"+ex.getMessage());
+                    }
+                    
                     JOptionPane.showMessageDialog(this, "Da xoa sach!!\n");
                     LoadPanelSach();
                 } catch (SQLException ex) {

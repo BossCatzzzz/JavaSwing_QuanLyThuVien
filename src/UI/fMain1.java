@@ -65,6 +65,9 @@ public class fMain1 extends javax.swing.JFrame {
         this.getContentPane().setBackground(new Color(30, 31, 38));//[30,31,38]210,225,230
 
         //LoadAllData();
+        
+//        String workingDir = System.getProperty("user.dir");
+//        System.out.println("here: "+ workingDir);
     }
 
 // <editor-fold defaultstate="collapsed" desc="Load tất cả mọi thứ"> 
@@ -217,6 +220,12 @@ public class fMain1 extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pnQLSachMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnQLSachMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnQLSachMouseExited(evt);
+            }
         });
 
         jLabel14.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -246,6 +255,12 @@ public class fMain1 extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pnQLDocGiaMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnQLDocGiaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnQLDocGiaMouseExited(evt);
+            }
         });
 
         jLabel16.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -274,6 +289,12 @@ public class fMain1 extends javax.swing.JFrame {
         pnQLMuonTra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pnQLMuonTraMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnQLMuonTraMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnQLMuonTraMouseExited(evt);
             }
         });
 
@@ -521,9 +542,36 @@ public class fMain1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void InChangeColor(JPanel pn){
+        pn.setBackground(Color.RED);
+    }
+
+    private void pnQLSachMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLSachMouseEntered
+        InChangeColor(pnQLSach);
+    }//GEN-LAST:event_pnQLSachMouseEntered
+
+    private void pnQLDocGiaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLDocGiaMouseEntered
+        InChangeColor(pnQLDocGia);
+    }//GEN-LAST:event_pnQLDocGiaMouseEntered
+
+    private void pnQLMuonTraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLMuonTraMouseEntered
+        InChangeColor(pnQLMuonTra);
+    }//GEN-LAST:event_pnQLMuonTraMouseEntered
+
+    private void pnQLMuonTraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLMuonTraMouseExited
+        pnQLMuonTra.setBackground(colors.get(2));
+    }//GEN-LAST:event_pnQLMuonTraMouseExited
+
+    private void pnQLDocGiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLDocGiaMouseExited
+        pnQLDocGia.setBackground(colors.get(1));
+    }//GEN-LAST:event_pnQLDocGiaMouseExited
+
+    private void pnQLSachMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLSachMouseExited
+        pnQLSach.setBackground(colors.get(0));
+    }//GEN-LAST:event_pnQLSachMouseExited
+
     public void LoadDocGia() {
         HANDLE.DOCGIALIST.clear();
-        System.out.println("UI.fMain1.LoadDocGia()");
         try {
             ResultSet rs = db.RunQuery("select * from DOCGIA");
             while (rs.next()) {
@@ -539,7 +587,7 @@ public class fMain1 extends javax.swing.JFrame {
         HANDLE.SACHLIST.clear();
         HANDLE.MAPTHELOAI.clear();
         try {
-            ResultSet rs = db.RunQuery("select * from SACH");
+            ResultSet rs = db.RunQuery("select MaSach,tensach,soluong,tentheloai,tomtat,tacgia from sach,theloai where theloai.MaTheLoai=sach.MaTheLoai");
             while (rs.next()) {
                 Sach s = new Sach(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
                 HANDLE.SACHLIST.add(s);

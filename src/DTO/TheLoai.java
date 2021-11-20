@@ -38,6 +38,6 @@ public class TheLoai {
     
     public String[] ToListString() {
         
-        return new String[]{this.matl, this.tentl};
+        return new String[]{this.matl,this.tentl};
     }
 }
