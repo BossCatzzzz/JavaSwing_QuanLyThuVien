@@ -94,11 +94,15 @@ public class TTPhieuMuon {
     }
 
     public String[] ToListString() {
-        return new String[]{this.sophieumuon, this.tengd, this.ngaymuon, this.ngayhentra, this.ngaytra, this.slmuon};
+        if (this.ngaytra == null) {
+            return new String[]{"<html><p style=\"color:red\">" + this.sophieumuon + "</p></html>", "<html><p style=\"color:red\">" + this.tengd + "</p></html>", "<html><p style=\"color:red\">" + this.ngaymuon + "</p></html>", "<html><p style=\"color:red\">" + this.ngayhentra + "</p></html>", "<html><p style=\"color:red\">" + this.ngaytra + "</p></html>", "<html><p style=\"color:red\">" + this.slmuon + "</p></html>"};
+        } else {
+            return new String[]{this.sophieumuon, this.tengd, this.ngaymuon, this.ngayhentra, this.ngaytra, this.slmuon};
+        }
     }
 
     public boolean SearchOnAll(String key) {
-        if (this.madg.equals(key)||this.sophieumuon.equals(key)||this.tengd.toLowerCase().contains(key.toLowerCase())) {
+        if (this.madg.equals(key) || this.sophieumuon.equals(key) || this.tengd.toLowerCase().contains(key.toLowerCase())) {
             return true;
         }
 

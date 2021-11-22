@@ -8,6 +8,7 @@ import BLL.MY_HANDLE;
 import Bookcovers.BookCover_Handle;
 import DAL.MY_HANDLE_CONNECTION;
 import DTO.Sach;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -46,7 +47,7 @@ public class fdThemSach extends javax.swing.JDialog {
     public fdThemSach(JFrame main, boolean modal, fQLSACH parent, MY_HANDLE handle) throws SQLException {
         super(main, modal);
         initComponents();
-
+        this.getContentPane().setBackground(new Color(211, 212, 195));
         db = new MY_HANDLE_CONNECTION();
         HANDLE = handle;
         MAIN = (fMain1) main;
@@ -56,12 +57,13 @@ public class fdThemSach extends javax.swing.JDialog {
         btThem.setText("Thêm");
         tbMaSach.setVisible(false);
         lbMasach.setVisible(false);
+
     }
 
     public fdThemSach(JFrame main, boolean modal, fQLSACH parent, Sach s, MY_HANDLE handle) throws SQLException {
         super(main, modal);
         initComponents();
-
+        this.getContentPane().setBackground(new Color(211, 212, 195));
         db = new MY_HANDLE_CONNECTION();
         HANDLE = handle;
         MAIN = (fMain1) main;
@@ -113,126 +115,71 @@ public class fdThemSach extends javax.swing.JDialog {
         btThem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(211, 212, 195));
 
         pnTTSach.setBackground(new java.awt.Color(167, 174, 130));
         pnTTSach.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnTTSach.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pnTTSach.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbMasach.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lbMasach.setText("Ma sach");
+        lbMasach.setText("<html><b>Mã sách</b></html>");
+        pnTTSach.add(lbMasach, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 33, 89, -1));
 
         tbMaSach.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbMaSach.setEnabled(false);
         tbMaSach.setFocusable(false);
+        pnTTSach.add(tbMaSach, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 226, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Tom tat");
+        jLabel5.setText("<html><b>Tóm tắt</b></html>");
+        pnTTSach.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 89, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Tac gia");
+        jLabel6.setText("<html><b>Tác giả</b></html> ");
+        pnTTSach.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 89, -1));
 
         tbTacGia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pnTTSach.add(tbTacGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 290, 226, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Ten sach");
+        jLabel2.setText("<html><b>Tên sách</b><a style=\"color:red;\"> *</a></html>");
+        pnTTSach.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 82, 89, -1));
 
         tbTenSach.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbTenSach.setName("ten"); // NOI18N
+        pnTTSach.add(tbTenSach, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 79, 226, -1));
 
         cbbTheLoai.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        pnTTSach.add(cbbTheLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 226, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("The loai");
+        jLabel3.setText("<html><b>Thể loại</b><a style=\"color:red; \"> *</a></html>");
+        pnTTSach.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 89, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("So luong");
+        jLabel4.setText("<html><b>Số lượng</b><a style=\"color:red;\"> *</a></html>");
+        pnTTSach.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, -1));
 
         tbSoluong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         tbSoluong.setName("sl"); // NOI18N
+        pnTTSach.add(tbSoluong, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 226, -1));
 
         jScrollPane1.setViewportView(jTextPane1);
 
-        btChonFile.setText("Chon file");
+        pnTTSach.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 226, 70));
+
+        btChonFile.setText("Chọn ảnh");
         btChonFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btChonFileActionPerformed(evt);
             }
         });
+        pnTTSach.add(btChonFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 269, -1, -1));
 
-        lbAnhChon.setText("<html><p style=padding-left:30px;\"\">Anh bia</p></html>");
-
-        javax.swing.GroupLayout pnTTSachLayout = new javax.swing.GroupLayout(pnTTSach);
-        pnTTSach.setLayout(pnTTSachLayout);
-        pnTTSachLayout.setHorizontalGroup(
-            pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTTSachLayout.createSequentialGroup()
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnTTSachLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(lbAnhChon, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnTTSachLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(btChonFile)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnTTSachLayout.createSequentialGroup()
-                            .addComponent(lbMasach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(42, 42, 42)
-                            .addComponent(tbMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTTSachLayout.createSequentialGroup()
-                            .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tbSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tbTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbbTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tbTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(33, 33, 33))
-        );
-        pnTTSachLayout.setVerticalGroup(
-            pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnTTSachLayout.createSequentialGroup()
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnTTSachLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbMasach)
-                            .addComponent(tbMaSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(tbTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(cbbTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(tbSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnTTSachLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(lbAnhChon, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tbTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btChonFile))
-                .addGap(18, 18, 18)
-                .addGroup(pnTTSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnTTSachLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 32, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
-                .addGap(26, 26, 26))
-        );
+        lbAnhChon.setText("<html><p style=padding-left:50px;\"\">Ảnh bìa</p></html>");
+        lbAnhChon.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnTTSach.add(lbAnhChon, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 31, 178, 226));
 
         btHuybo.setText("Hủy bỏ");
         btHuybo.setMaximumSize(new java.awt.Dimension(72, 72));
@@ -260,27 +207,27 @@ public class fdThemSach extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(btThem, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                .addGap(85, 85, 85)
-                .addComponent(btHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(158, Short.MAX_VALUE)
+                .addComponent(btThem, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(btHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnTTSach, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnTTSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(381, Short.MAX_VALUE)
+                .addContainerGap(468, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47))
+                .addGap(15, 15, 15))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(pnTTSach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 138, Short.MAX_VALUE)))
+                    .addComponent(pnTTSach, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 99, Short.MAX_VALUE)))
         );
 
         pack();
@@ -291,8 +238,8 @@ public class fdThemSach extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Chua dien day du thong tin");
             return;
         }
-        if (Integer.parseInt(tbSoluong.getText()) < 1) {
-            JOptionPane.showMessageDialog(this, "Chu Y!!\nSo luong phai lon hon 0");
+        if (Integer.parseInt(tbSoluong.getText()) < 0) {
+            JOptionPane.showMessageDialog(this, "Chu Y!!\nSo luong phai lon hon hoac bang 0");
             return;
         }
         if (btThem.getText().equals("Thêm")) {

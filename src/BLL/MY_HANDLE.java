@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
@@ -170,5 +172,30 @@ public class MY_HANDLE {
             tmp = title;
         }
         return tmp;
+    }
+
+    public String ExcludeHTML(String stock) {
+        if (!stock.contains("<html>")) {
+            return stock;
+        }
+
+        String s = "";
+        //        <html><p style=\"color:red\">    20   </p></html>
+        int be = 0, en = 0;
+        for (int i = 0; i < stock.length(); i++) {
+            if (stock.charAt(i) == '>' && stock.charAt(i + 1) != '<') {
+                be = i + 1;
+                break;
+            }
+        }
+        for (int i = be + 1; i < stock.length(); i++) {
+            if (stock.charAt(i) == '<' && stock.charAt(i - 1) != '>') {
+                en = i;
+                break;
+            }
+        }
+        s = stock.substring(be, en);
+
+        return s;
     }
 }

@@ -7,6 +7,7 @@ package UI;
 import BLL.MY_HANDLE;
 import DAL.MY_HANDLE_CONNECTION;
 import DTO.DocGia;
+import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,17 +26,18 @@ public class fdThemDG extends javax.swing.JDialog {
 
     /**
      * này để tạo form thêm
+     *
      * @param main
      * @param modal
      * @param parent
-     * @throws SQLException 
+     * @throws SQLException
      */
-    public fdThemDG(JFrame main, boolean modal,fQLDOCGIA parent) throws SQLException {
+    public fdThemDG(JFrame main, boolean modal, fQLDOCGIA parent) throws SQLException {
         super(main, modal);
         initComponents();
         db = new MY_HANDLE_CONNECTION();
         HANDLE = new MY_HANDLE();
-
+        this.getContentPane().setBackground(new Color(211, 212, 195));
         btThemDG.setText("Thêm");
         tbMaDG.setVisible(false);
         lbMaDG.setVisible(false);
@@ -45,6 +47,7 @@ public class fdThemDG extends javax.swing.JDialog {
 
     /**
      * constructor này để tạo form sửa
+     *
      * @param main
      * @param parent
      * @param modal
@@ -54,6 +57,7 @@ public class fdThemDG extends javax.swing.JDialog {
     public fdThemDG(JFrame main, boolean modal, fQLDOCGIA parent, DocGia dg) throws SQLException {
         super(main, modal);
         initComponents();
+        this.getContentPane().setBackground(new Color(211, 212, 195));
         db = new MY_HANDLE_CONNECTION();
         HANDLE = new MY_HANDLE();
         MAIN = (fMain1) main;
@@ -65,10 +69,11 @@ public class fdThemDG extends javax.swing.JDialog {
         tbDiaChi.setText(dg.getDiachi());
         tbCMTDG.setText(dg.getCmnd());
         tbMaDG.setText(dg.getMa());
-        if(dg.Gioitinh().equals("1"))
+        if (dg.Gioitinh().equals("1")) {
             rdbtNam.setSelected(true);
-        else
+        } else {
             rdbtNu.setSelected(true);
+        }
     }
 
     private fdThemDG(JFrame jFrame, boolean b) {
@@ -229,15 +234,14 @@ public class fdThemDG extends javax.swing.JDialog {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Loi khi them Doc gia:\n" + ex.getMessage());
             }
-        } 
-        // xuong day tuc la chuc nang sua ========================================================================
+        } // xuong day tuc la chuc nang sua ========================================================================
         else {
-            String[] query = {"update DOCGIA set TenDocGia=?,DiaChi=?,Sdt=?,CMND=?,GioiTinh=? where MaDocGia=? ", "", "", "", "", "",""};
+            String[] query = {"update DOCGIA set TenDocGia=?,DiaChi=?,Sdt=?,CMND=?,GioiTinh=? where MaDocGia=? ", "", "", "", "", "", ""};
             query[1] = tbTenDG.getText();
             query[2] = tbDiaChi.getText();
             query[3] = tbSDTDG.getText();
             query[4] = tbCMTDG.getText();
-            query[5]=(rdbtNam.isSelected())?"1":"0";
+            query[5] = (rdbtNam.isSelected()) ? "1" : "0";
             query[6] = EDIT.getMa();
 
             try {
@@ -255,7 +259,6 @@ public class fdThemDG extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btHuyBoActionPerformed
 
-    
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -10,6 +10,7 @@ import DAL.MY_HANDLE_CONNECTION;
 import DTO.TTPhieuMuon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 import javax.swing.event.DocumentEvent;
@@ -34,7 +35,7 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
         db = new MY_HANDLE_CONNECTION();
         HANDLE = xl;
         MAIN = f;
-        
+
         LoadAfterCreatePM();
     }
 
@@ -52,13 +53,13 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
             return;
         }
 
-        int sophieumuon = Integer.parseInt(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 0).toString());
-        tbSo_PM.setText("" + sophieumuon);
-        tbTenDG_PM.setText(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 1).toString());
-        tbNgayMuon.setText(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 2).toString());
-        tbNgayHen.setText(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 3).toString());
-        String ngaytra;
-        if (tablePhieuMuon.getValueAt(CHONPHIEUMUON, 4) == null) {
+        String sophieumuon = HANDLE.ExcludeHTML(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 0).toString());
+        tbSo_PM.setText(sophieumuon);
+        tbTenDG_PM.setText(HANDLE.ExcludeHTML(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 1).toString()));
+        tbNgayMuon.setText(HANDLE.ExcludeHTML(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 2).toString()));
+        tbNgayHen.setText(HANDLE.ExcludeHTML(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 3).toString()));
+        String ngaytra = HANDLE.ExcludeHTML(tablePhieuMuon.getValueAt(CHONPHIEUMUON, 4).toString());
+        if (ngaytra == null || ngaytra.equals("null")) {
             ngaytra = "chưa trả";
             btTraSach.setVisible(true);
         } else {
@@ -76,6 +77,7 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
         model.setRowCount(0);
         for (TTPhieuMuon tTPhieuMuon : HANDLE.PHIEUMUONLIST) {
             model.addRow(tTPhieuMuon.ToListString());
+
         }
     }
 
@@ -99,8 +101,8 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
         }
         tableCTPM.setModel(model);
     }
-    
-        public void search() {
+
+    public void search() {
         DefaultTableModel model = (DefaultTableModel) tablePhieuMuon.getModel();
         model.setRowCount(0);
         for (TTPhieuMuon item : HANDLE.PHIEUMUONLIST) {
@@ -366,21 +368,17 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
         ChonDongPhieuMuon();
     }//GEN-LAST:event_tablePhieuMuonMouseClicked
 
-//            DefaultTableModel model = (DefaultTableModel) tablePhieuMuon.getModel();
-//        model.setRowCount(0);
-//        for (TTPhieuMuon tTPhieuMuon : HANDLE.PHIEUMUONLIST) {
-//            if (tTPhieuMuon.getSophieumuon().equals(tbTImkiemPhieuMuon.getText())) {
-//                model.addRow(tTPhieuMuon.ToListString());
-//            }
-//        }
-    private void btThemPhieuMuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemPhieuMuonActionPerformed
-        if (fThemPM == null) {
-            try {
-                fThemPM = new fThemPhieuMuon(this,HANDLE);
-            } catch (SQLException ex) {
 
-            }
+    private void btThemPhieuMuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemPhieuMuonActionPerformed
+
+        MAIN.LoadSach();
+        fThemPM = null;
+        try {
+            fThemPM = new fThemPhieuMuon(this, HANDLE);
+        } catch (SQLException ex) {
+
         }
+
         fThemPM.setLocationRelativeTo(null);
         fThemPM.show();
         //fThemPM.requestFocus();
@@ -393,14 +391,15 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(null, "Xac nhan da tra", "Chú ý", YES_NO_OPTION) == 0) {
 
             String[] query = {"update PHIEUMUON set NgayTraThucTe=? where SoPhieuMuon=? ", "", ""};
-            query[1] = java.time.LocalDate.now().toString();
+            query[1] = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yy"));
+
             query[2] = tbSo_PM.getText();
             String query_next = "select MaSach from CTPHIEUMUON where SoPhieuMuon=" + tbSo_PM.getText();
 
             try {
                 ResultSet rs = db.RunQuery(query_next);
                 while (rs.next()) {
-                    int masachcancapnhat = Integer.parseInt(rs.getString(1));
+                    String masachcancapnhat = rs.getString(1);
                     String[] query_next_next = {"update SACH set SoLuong=(SoLuong+1) where MaSach=?", "" + masachcancapnhat};
                     db.RunQuery(query_next_next);
                 }
@@ -412,6 +411,7 @@ public class fQLMUONTRA extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Loi khi cap nhat phieu muon:\n" + ex.getMessage());
             }
         }
+        LoadAfterCreatePM();
     }//GEN-LAST:event_btTraSachActionPerformed
 
 

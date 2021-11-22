@@ -97,7 +97,7 @@ public class fQLSACH extends javax.swing.JInternalFrame {
         for (TheLoai theLoai : HANDLE.THELOAILIST) {
             model.addRow(theLoai.ToListString());
         }
-        model.addRow(new String[]{"", "<html><p style=\"padding-left:50px\">" + "Tất cả thể loại" + "</p></html>"});
+        model.addRow(new String[]{"", "<html><b style=\"padding-left:50px\">*Tất cả thể loại*</b></html>"});
     }
 
     private void Combobox_load() {
@@ -515,7 +515,9 @@ public class fQLSACH extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(fQLSACH.class.getName()).log(Level.SEVERE, null, ex);
             }
+            fthem.setLocationRelativeTo(null);
             fthem.show();
+            
         } else {
             JOptionPane.showMessageDialog(this, "Hay chon mot Sach");
         }
@@ -532,6 +534,7 @@ public class fQLSACH extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Loi khi tao form them sach:\n" + ex.getMessage());
         }
+        fthem.setLocationRelativeTo(null);
         fthem.show();
     }//GEN-LAST:event_btThemActionPerformed
 
