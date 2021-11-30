@@ -5,6 +5,7 @@
  */
 package DTO;
 
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,10 +14,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TTPhieuMuon {
 
-    private String ngaymuon, tengd, ngayhentra, slmuon, sophieumuon, ngaytra, madg;
+    private String  tengd,  slmuon, sophieumuon,  madg;
+    private Date ngaymuon,ngayhentra,ngaytra;
     private DefaultTableModel dss;
 
-    public TTPhieuMuon(String sophieumuon, String ngaymuon, String ngayhentra, String ngaytra, String tengd, String slmuon, String madg) {
+    public TTPhieuMuon(String sophieumuon, Date ngaymuon, Date ngayhentra, Date ngaytra, String tengd, String slmuon, String madg) {
         this.ngaymuon = ngaymuon;
         this.tengd = tengd;
         this.ngayhentra = ngayhentra;
@@ -29,7 +31,7 @@ public class TTPhieuMuon {
     public TTPhieuMuon() {
     }
 
-    public void setNgaymuon(String ngaymuon) {
+    public void setNgaymuon(Date ngaymuon) {
         this.ngaymuon = ngaymuon;
     }
 
@@ -37,7 +39,7 @@ public class TTPhieuMuon {
         this.tengd = tengd;
     }
 
-    public void setNgayhentra(String ngayhentra) {
+    public void setNgayhentra(Date ngayhentra) {
         this.ngayhentra = ngayhentra;
     }
 
@@ -49,7 +51,7 @@ public class TTPhieuMuon {
         this.sophieumuon = sophieumuon;
     }
 
-    public void setNgaytra(String ngaytra) {
+    public void setNgaytra(Date ngaytra) {
         this.ngaytra = ngaytra;
     }
 
@@ -61,7 +63,7 @@ public class TTPhieuMuon {
         this.dss = dss;
     }
 
-    public String getNgaymuon() {
+    public Date getNgaymuon() {
         return ngaymuon;
     }
 
@@ -69,7 +71,7 @@ public class TTPhieuMuon {
         return tengd;
     }
 
-    public String getNgayhentra() {
+    public Date getNgayhentra() {
         return ngayhentra;
     }
 
@@ -81,7 +83,7 @@ public class TTPhieuMuon {
         return sophieumuon;
     }
 
-    public String getNgaytra() {
+    public Date getNgaytra() {
         return ngaytra;
     }
 
@@ -95,9 +97,9 @@ public class TTPhieuMuon {
 
     public String[] ToListString() {
         if (this.ngaytra == null) {
-            return new String[]{"<html><p style=\"color:red\">" + this.sophieumuon + "</p></html>", "<html><p style=\"color:red\">" + this.tengd + "</p></html>", "<html><p style=\"color:red\">" + this.ngaymuon + "</p></html>", "<html><p style=\"color:red\">" + this.ngayhentra + "</p></html>", "<html><p style=\"color:red\">" + this.ngaytra + "</p></html>", "<html><p style=\"color:red\">" + this.slmuon + "</p></html>"};
+            return new String[]{"<html><p style=\"color:red\">" + this.sophieumuon + "</p></html>", "<html><p style=\"color:red\">" + this.tengd + "</p></html>", "<html><p style=\"color:red\">" + this.ngaymuon + "</p></html>", "<html><p style=\"color:red\">" + this.ngayhentra + "</p></html>", "<html><p style=\"color:red\">Chưa trả</p></html>", "<html><p style=\"color:red\">" + this.slmuon + "</p></html>"};
         } else {
-            return new String[]{this.sophieumuon, this.tengd, this.ngaymuon, this.ngayhentra, this.ngaytra, this.slmuon};
+            return new String[]{this.sophieumuon, this.tengd, this.ngaymuon.toString(), this.ngayhentra.toString(), this.ngaytra.toString(), this.slmuon};
         }
     }
 

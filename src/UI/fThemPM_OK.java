@@ -36,8 +36,8 @@ public class fThemPM_OK extends javax.swing.JFrame {
         TTPhieuMuon THONGTIN = info;
         tbMaDG.setText(THONGTIN.getMadg());
         tbHoten.setText(THONGTIN.getTengd());
-        tbNgayMuon.setText(THONGTIN.getNgaymuon());
-        tbNgayHenTra_FM.setText(THONGTIN.getNgayhentra());
+        tbNgayMuon.setText(THONGTIN.getNgaymuon().toString());
+        tbNgayHenTra_FM.setText(THONGTIN.getNgayhentra().toString());
         tableDSChon.setModel(THONGTIN.getDss());
         tbSoPhieuMuon.setText(THONGTIN.getSophieumuon());
     }

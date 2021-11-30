@@ -11,10 +11,12 @@ import DTO.DocGia;
 import DTO.Sach;
 import DTO.TTPhieuMuon;
 import DTO.TheLoai;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,18 +56,22 @@ public class fMain1 extends javax.swing.JFrame {
 //        LoadPannelDocGia();
 //        EnablePnTTSach(false);
         fhere = new fQLSACH(this, HANDLE);
+        //fThongKe tk = new fThongKe();
         pnDesktop.add(fhere).setVisible(true);
         colors = new ArrayList<Color>();
         colors.add(new Color(60, 83, 60));
         colors.add(new Color(101, 123, 97));
         colors.add(new Color(141, 161, 132));
+        colors.add(new Color(141, 161, 132));
 
         panedaefau = new Color(77, 100, 141);
-        paneclick = new Color(146, 136, 126);
+        paneclick = new Color(173, 135, 125);
+        //paneclick=Color.RED;
         this.getContentPane().setBackground(new Color(30, 31, 38));//[30,31,38]210,225,230
 
+        //test();
+
         //LoadAllData();
-        
 //        String workingDir = System.getProperty("user.dir");
 //        System.out.println("here: "+ workingDir);
     }
@@ -189,6 +195,8 @@ public class fMain1 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         pnQLMuonTra = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
+        pnQLTK = new javax.swing.JPanel();
+        LBTK = new javax.swing.JLabel();
         pnDesktop = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -318,6 +326,41 @@ public class fMain1 extends javax.swing.JFrame {
         );
 
         pnMenu.add(pnQLMuonTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 250, -1));
+
+        pnQLTK.setBackground(new java.awt.Color(60, 83, 60));
+        pnQLTK.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnQLTK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnQLTKMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnQLTKMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnQLTKMouseExited(evt);
+            }
+        });
+
+        LBTK.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        LBTK.setForeground(new java.awt.Color(204, 204, 204));
+        LBTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/bookmng.png"))); // NOI18N
+        LBTK.setText("THỐNG KÊ");
+
+        javax.swing.GroupLayout pnQLTKLayout = new javax.swing.GroupLayout(pnQLTK);
+        pnQLTK.setLayout(pnQLTKLayout);
+        pnQLTKLayout.setHorizontalGroup(
+            pnQLTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnQLTKLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LBTK, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnQLTKLayout.setVerticalGroup(
+            pnQLTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(LBTK, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, Short.MAX_VALUE)
+        );
+
+        pnMenu.add(pnQLTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 250, -1));
 
         pnDesktop.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -458,16 +501,17 @@ public class fMain1 extends javax.swing.JFrame {
         fhere.setSize(pnDesktop.getWidth(), pnDesktop.getHeight());
     }//GEN-LAST:event_formComponentResized
 
-    void OnlyOne(JPanel it) {
+    private void OnlyOne(JPanel it) {
         for (int i = 0; i < pnMenu.getComponentCount(); i++) {
             JPanel pn = (JPanel) pnMenu.getComponent(i);
             pn.setBackground(colors.get(i));
         }
         it.setBackground(paneclick);
+        Old = paneclick;
     }
     private void pnQLSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLSachMouseClicked
         OnlyOne(pnQLSach);
-
+        System.out.println("UI.fMain1.pnQLSachMouseClicked()");
         try {
             fhere = new fQLSACH(this, HANDLE);
             fhere.setSize(pnDesktop.getWidth(), pnDesktop.getHeight());
@@ -482,7 +526,7 @@ public class fMain1 extends javax.swing.JFrame {
 
     private void pnQLDocGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLDocGiaMouseClicked
         OnlyOne(pnQLDocGia);
-
+        System.out.println("UI.fMain1.pnQLDocGiaMouseClicked()");
         try {
             fhere = new fQLDOCGIA(this, HANDLE);
             fhere.setSize(pnDesktop.getWidth(), pnDesktop.getHeight());
@@ -496,7 +540,7 @@ public class fMain1 extends javax.swing.JFrame {
 
     private void pnQLMuonTraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLMuonTraMouseClicked
         OnlyOne(pnQLMuonTra);
-
+        System.out.println("UI.fMain1.pnQLMuonTraMouseClicked()");
         try {
             fhere = new fQLMUONTRA(this, HANDLE);
             fhere.setSize(pnDesktop.getWidth(), pnDesktop.getHeight());
@@ -527,7 +571,6 @@ public class fMain1 extends javax.swing.JFrame {
             //handle double click event.
 
             if (this.getExtendedState() == 6) {
-                //JOptionPane.showMessageDialog(rootPane, "full");
                 this.setExtendedState(JFrame.NORMAL);
             } else {
                 this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -536,14 +579,19 @@ public class fMain1 extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        //JOptionPane.showMessageDialog(rootPane, ""+this.getExtendedState());
         if (JOptionPane.showConfirmDialog(null, "Ban co muon thoat", "Chú ý", YES_NO_OPTION) == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void InChangeColor(JPanel pn){
-        pn.setBackground(Color.RED);
+    private void InChangeColor(JPanel pn) {
+        Old = pn.getBackground();
+        pn.setBackground(new Color(173, 135, 125));
+    }
+    private Color Old;
+
+    private void OutChangeColor(JPanel pn, Color old) {
+        pn.setBackground(old);
     }
 
     private void pnQLSachMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLSachMouseEntered
@@ -554,21 +602,49 @@ public class fMain1 extends javax.swing.JFrame {
         InChangeColor(pnQLDocGia);
     }//GEN-LAST:event_pnQLDocGiaMouseEntered
 
+    private Color pnMuonTraOldColor, pnSachOldColor, pnDocGiaOldColor;
     private void pnQLMuonTraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLMuonTraMouseEntered
         InChangeColor(pnQLMuonTra);
+        //pnMuonTraOldColor=pnQLMuonTra.getBackground();
     }//GEN-LAST:event_pnQLMuonTraMouseEntered
 
     private void pnQLMuonTraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLMuonTraMouseExited
-        pnQLMuonTra.setBackground(colors.get(2));
+        // pnQLMuonTra.setBackground(colors.get(2));
+        OutChangeColor(pnQLMuonTra, Old);
     }//GEN-LAST:event_pnQLMuonTraMouseExited
 
     private void pnQLDocGiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLDocGiaMouseExited
-        pnQLDocGia.setBackground(colors.get(1));
+        //pnQLDocGia.setBackground(colors.get(1));
+        OutChangeColor(pnQLDocGia, Old);
     }//GEN-LAST:event_pnQLDocGiaMouseExited
 
     private void pnQLSachMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLSachMouseExited
-        pnQLSach.setBackground(colors.get(0));
+        //pnQLSach.setBackground(colors.get(0));
+        OutChangeColor(pnQLSach, Old);
     }//GEN-LAST:event_pnQLSachMouseExited
+
+    private void pnQLTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLTKMouseClicked
+        OnlyOne(pnQLTK);
+        System.out.println("UI.fMain1.pnQLTKMouseClicked()");
+        try {
+            fhere = new fThongKe();
+            fhere.setSize(pnDesktop.getWidth(), pnDesktop.getHeight());
+        } catch (SQLException ex) {
+
+        }
+
+        pnDesktop.removeAll();
+        pnDesktop.add(fhere).setVisible(true);
+
+    }//GEN-LAST:event_pnQLTKMouseClicked
+
+    private void pnQLTKMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLTKMouseEntered
+        InChangeColor(pnQLTK);
+    }//GEN-LAST:event_pnQLTKMouseEntered
+
+    private void pnQLTKMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnQLTKMouseExited
+        OutChangeColor(pnQLTK, Old);
+    }//GEN-LAST:event_pnQLTKMouseExited
 
     public void LoadDocGia() {
         HANDLE.DOCGIALIST.clear();
@@ -619,12 +695,41 @@ public class fMain1 extends javax.swing.JFrame {
         try {
             ResultSet rs = db.RunQuery("select SoPhieuMuon,NgayMuon,NgayHenTra,NgayTraThucTe,TenDocGia,SoLuongMuon,PHIEUMUON.MaDocGia from PHIEUMUON,DOCGIA where DOCGIA.MaDocGia=PHIEUMUON.MaDocGia");
             while (rs.next()) {
-                TTPhieuMuon tt = new TTPhieuMuon(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+                TTPhieuMuon tt = new TTPhieuMuon(rs.getString(1), rs.getDate(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getString(7));
                 HANDLE.PHIEUMUONLIST.add(tt);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Co loi khi lay du lieu phieu muon:\n" + ex.getMessage());
         }
+    }
+
+    private void test() {
+        try {
+            ResultSet rs = db.RunQuery("select SoPhieuMuon,ngaymuon,NgayHenTra,NgayTraThucTe,TenDocGia,SoLuongMuon,PHIEUMUON.MaDocGia from PHIEUMUON,DOCGIA where DOCGIA.MaDocGia=PHIEUMUON.MaDocGia");
+            while (rs.next()) {
+                Date date = rs.getDate(2);
+                System.out.println("UI.fMain1.test()\tNgay muon:" + date + "\tNgay hen tra: " + rs.getDate(3)+"\nNgay:"+ date.getDate()+"\tThang:"+(date.getMonth()+1)+"\tNam"+(date.getYear()+1900));
+
+                JDateChooser d = new JDateChooser();
+                d.setDateFormatString("dd/M/y");
+                d.setDate(date);
+                JFrame jf = new JFrame("test");
+                jf.setSize(200, 80);
+                jf.getContentPane().add(d);
+                
+                jf.setFocusable(true);
+                
+                jf.setVisible(true);
+                break;
+
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Co loi khi lay du lieu phieu muon:\n" + ex.getMessage());
+        }
+    }
+    private void test2()
+    {
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="Click vào đây là project ko chạy được !!!"> 
@@ -665,6 +770,7 @@ public class fMain1 extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LBTK;
     private javax.swing.JButton btDangNhap_DangXuat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
@@ -676,5 +782,6 @@ public class fMain1 extends javax.swing.JFrame {
     private javax.swing.JPanel pnQLDocGia;
     private javax.swing.JPanel pnQLMuonTra;
     private javax.swing.JPanel pnQLSach;
+    private javax.swing.JPanel pnQLTK;
     // End of variables declaration//GEN-END:variables
 } //</editor-fold>

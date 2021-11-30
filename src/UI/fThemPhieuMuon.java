@@ -14,6 +14,7 @@ import DTO.TheLoai;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Level;
@@ -51,6 +52,10 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
         FATHER = f;
         HANDLE = xuly;
         tbNgayMuonN.setText(java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yy")));
+        
+        
+        LocalDate date=java.time.LocalDate.now();
+        jdNgayMuon.setDate(new Date(date.getYear()-1900,date.getMonthValue()-1,date.getDayOfMonth()));
         LayBangSach();
         LayBangTheLoai();
         btXacNhan.setEnabled(false);
@@ -102,6 +107,7 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
         tableTheLoai = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableDSS = new javax.swing.JTable();
+        jdNgayMuon = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -361,6 +367,8 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
 
+            jdNgayMuon.setDateFormatString("dd-MM-y");
+
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
@@ -372,7 +380,9 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(96, 96, 96)
+                    .addComponent(jdNgayMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btThem)
                     .addGap(54, 54, 54)
                     .addComponent(btHuyBo)
@@ -385,10 +395,15 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(pnDSSM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(24, 24, 24)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btThem, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(24, 24, 24)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btThem, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btHuyBo, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(33, 33, 33)
+                            .addComponent(jdNgayMuon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(26, 26, 26))
             );
 
@@ -448,7 +463,8 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(null, "Xac nhan them", "Chú ý", YES_NO_OPTION) == 0) {
 
             String[] query = {"insert into PHIEUMUON(NgayMuon,NgayHenTra,MaDocGia,SoLuongMuon) output inserted.SoPhieuMuon values(?,?,?,?)", "", "", "", ""};
-            query[1] = tbNgayMuonN.getText();
+           query[1] = tbNgayMuonN.getText();
+            //query[1] = jdNgayMuon.getCalendar();
             query[2] = tbNgayHenTra_FM.getText();
             query[3] = tbMaDG.getText();
             query[4] = "" + tableDSChon.getRowCount();
@@ -634,6 +650,7 @@ public class fThemPhieuMuon extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private com.toedter.calendar.JDateChooser jdNgayMuon;
     private javax.swing.JPanel pnDSSM;
     private javax.swing.JTable tableDSChon;
     private javax.swing.JTable tableDSS;

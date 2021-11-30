@@ -35,6 +35,8 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+              <Component id="jdNgayMuon" min="-2" pref="141" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btThem" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -51,10 +53,18 @@
                   <Component id="pnDSSM" min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btThem" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                  <Component id="btHuyBo" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btThem" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="btHuyBo" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="jdNgayMuon" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
@@ -466,5 +476,10 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="com.toedter.calendar.JDateChooser" name="jdNgayMuon">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-MM-y"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

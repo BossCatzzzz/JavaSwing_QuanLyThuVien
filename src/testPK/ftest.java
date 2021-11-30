@@ -23,9 +23,9 @@ public class ftest extends javax.swing.JFrame {
      */
     public ftest() throws InterruptedException {
         initComponents();
-        //JFrame jf = new JFrame("test");
-        //jf.setSize(800, 600);
-        this.setSize(800,600);
+        JFrame jf = new JFrame("test");
+        jf.setSize(800, 600);
+        jf.setSize(800,600);
         JPanel jp = new JPanel();
         jp.setSize(800, 600);
         jp.setBackground(Color.red);
@@ -36,24 +36,37 @@ public class ftest extends javax.swing.JFrame {
         boolean reverse = false;
         jl.setBounds(x, jp.getHeight() / 2, size.width, size.height);
         jp.add(jl);
-        this.add(jp);
-        this.setVisible(true);
-        jl.setBounds(20, jp.getHeight()/2, size.width, size.height);
-        Thread.sleep(10);
-        jl.setBounds(50, jp.getHeight()/2, size.width, size.height);
-        Thread.sleep(10);
-        jl.setBounds(100, jp.getHeight()/2, size.width, size.height);
-//        while(true){
-//            if(x==jp.getWidth()-60&&!reverse) 
-//                reverse=true;
-//            else if(x==0&&reverse)
-//                reverse=false;
-//            if(reverse)
-//                x--;
-//            else x++;
-//            jl.setBounds(x,jp.getHeight()/2, size.width, size.height);
-//            Thread.sleep(10);
+        jf.getContentPane().add(jp);
+        jf.setVisible(true);
+        jf.show();
+        
+//        jl.setBounds(20, jp.getHeight()/2, size.width, size.height);
+//        jl.setVisible(true);
+//        Thread.sleep(10);
+//        jl.setBounds(50, jp.getHeight()/2, size.width, size.height);
+//        jl.setVisible(true);
+//        Thread.sleep(10);
+//        jl.setBounds(500, jp.getHeight()/2, size.width, size.height);
+//        jl.setVisible(true);
+
+//        for (int i = 0; i < 100; i++) {
+//            jp.remove(jl);
+//            jl.setBounds(20+i, jp.getHeight()/2, size.width, size.height);
+//            jl.setVisible(true);
+//            jp.add(jl);
 //        }
+
+        while(true){
+            if(x==jp.getWidth()-60&&!reverse) 
+                reverse=true;
+            else if(x==0&&reverse)
+                reverse=false;
+            if(reverse)
+                x--;
+            else x++;
+            jl.setBounds(x,jp.getHeight()/2, size.width, size.height);
+            Thread.sleep(10);
+        }
 
 //        for (int i = 0; i < 20; i++) {
 //            if (i % 2 == 0) {
@@ -67,7 +80,6 @@ public class ftest extends javax.swing.JFrame {
 //                    Thread.sleep(10);
 //                }
 //            }
-//
 //        }
     }
 
