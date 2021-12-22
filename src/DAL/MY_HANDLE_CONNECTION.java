@@ -18,9 +18,14 @@ import java.sql.*;
 public class MY_HANDLE_CONNECTION {
 
     private Connection conn;
+    public Connection getConnect()
+    {
+        return conn;
+    }
 
     public MY_HANDLE_CONNECTION() throws SQLException {
         String cntString = "jdbc:sqlserver://PRIME\\PRIMESQL:1433;databaseName=QUANLYTHUVIEN_UPDATE";
+        //String cntString = "jdbc:sqlserver://MAGIC-MSI:1433;databaseName=QUANLYTHUVIEN_UPDATE";
         try {
             conn = DriverManager.getConnection(cntString, "sa", "123456");
         } catch (SQLException e) {

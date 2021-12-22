@@ -5,12 +5,11 @@
  */
 package DTO;
 
-
 /**
  *
  * @author Magic
  */
-public class DocGia{
+public class DocGia extends MyOBJ {
 
     public String getTen() {
         return ten;
@@ -60,34 +59,31 @@ public class DocGia{
         this.gioitinh = gioitinh;
     }
 
-    
-    private String ten,ma,sdt,diachi,gioitinh,cmnd;
-    
+    private String ten, ma, sdt, diachi, gioitinh, cmnd;
 
-    public DocGia(String ma,String ten, String diachi, String sdt, String cmnd,String gt) {
+    public DocGia(String ma, String ten, String diachi, String sdt, String cmnd, String gt) {
         this.ten = ten;
         this.ma = ma;
         this.sdt = sdt;
         this.diachi = diachi;
         this.cmnd = cmnd;
-        this.gioitinh=gt;
+        this.gioitinh = gt;
     }
 
     public DocGia() {
     }
-    public String[] ToListString()
-    {        
-        return new String[]{this.ma,this.ten,this.diachi,this.sdt,this.cmnd,this.gioitinh};
+
+    public String[] ToListString() {
+        return new String[]{this.ma, this.ten, this.diachi, this.sdt, this.cmnd, this.gioitinh};
     }
-        public boolean SearchOnAll(String key)
-    {
+
+    public boolean SearchOnAll(String key) {
         for (String item : this.ToListString()) {
-           if(item.toLowerCase().contains(key.toLowerCase()))
-            {
+            if (BoQuaUNICODE(item.toLowerCase()).contains(key.toLowerCase()) || item.toLowerCase().contains(key.toLowerCase())) {
                 return true;
             }
         }
         return false;
     }
-    
+
 }

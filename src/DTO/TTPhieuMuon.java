@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Magic
  */
-public class TTPhieuMuon {
+public class TTPhieuMuon extends MyOBJ{
 
     private String  tengd,  slmuon, sophieumuon,  madg;
     private Date ngaymuon,ngayhentra,ngaytra;
@@ -104,7 +104,7 @@ public class TTPhieuMuon {
     }
 
     public boolean SearchOnAll(String key) {
-        if (this.madg.equals(key) || this.sophieumuon.equals(key) || this.tengd.toLowerCase().contains(key.toLowerCase())) {
+        if (this.madg.equals(key) || this.sophieumuon.equals(key) || this.tengd.toLowerCase().contains(key.toLowerCase())||BoQuaUNICODE(this.tengd).toLowerCase().contains(key.toLowerCase())) {
             return true;
         }
 

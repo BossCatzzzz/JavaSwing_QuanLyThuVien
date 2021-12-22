@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
@@ -33,7 +31,9 @@ public class MY_HANDLE {
     public List<TTPhieuMuon> PHIEUMUONLIST;
     public List<TheLoai> THELOAILIST;
     public Map<String, String> MAPTHELOAI = new HashMap<String, String>();
-
+    public String ten, mail, tendn;
+    private String mk;
+    
     public String MD5Hash(String input) {
         MessageDigest md;
         try {
@@ -49,8 +49,7 @@ public class MY_HANDLE {
         return sb.toString();
     }
 
-    public String ten, mail, tendn;
-    private String mk;
+
 
     public MY_HANDLE() {
         DOCGIALIST = new ArrayList<DocGia>();

@@ -12,8 +12,8 @@ import java.util.ArrayList;
  *
  * @author Magic
  */
-public class Sach {
-    private String MaSach, TenSach, SoLuong, MaTheLoai, TomTat, tacgia;
+public class Sach extends MyOBJ{
+    private String MaSach, TenSach, SoLuong, TenTheLoai, TomTat, tacgia;
 
     public String getMaSach() {
         return MaSach;
@@ -39,12 +39,12 @@ public class Sach {
         this.SoLuong = SoLuong;
     }
 
-    public String getMaTheLoai() {
-        return MaTheLoai;
+    public String getTenTheLoai() {
+        return TenTheLoai;
     }
 
-    public void setMaTheLoai(String MaTheLoai) {
-        this.MaTheLoai = MaTheLoai;
+    public void setTenTheLoai(String MaTheLoai) {
+        this.TenTheLoai = MaTheLoai;
     }
 
     public String getTomTat() {
@@ -65,7 +65,7 @@ public class Sach {
     
     public String[] ToListString()
     {    
-        return new String[]{this.MaSach,this.TenSach,this.SoLuong,this.MaTheLoai,this.TomTat,this.tacgia};
+        return new String[]{this.MaSach,this.TenSach,this.SoLuong,this.TenTheLoai,this.TomTat,this.tacgia};
     }
 
     public Sach() {
@@ -75,7 +75,7 @@ public class Sach {
         this.MaSach = MaSach;
         this.TenSach = TenSach;
         this.SoLuong = SoLuong;
-        this.MaTheLoai = MaTheLoai;
+        this.TenTheLoai = MaTheLoai;
         this.TomTat = TomTat;
         this.tacgia = tacgia;
     }
@@ -83,7 +83,7 @@ public class Sach {
     public boolean SearchOnAll(String key)
     {
         for (String item : this.ToListString()) {
-           if(item.toLowerCase().contains(key.toLowerCase()))
+           if( BoQuaUNICODE(item.toLowerCase()).contains(key.toLowerCase())||item.toLowerCase().contains(key.toLowerCase()))
             {
                 return true;
             }
@@ -91,5 +91,6 @@ public class Sach {
         return false;
     }
     
+   
     
 }
